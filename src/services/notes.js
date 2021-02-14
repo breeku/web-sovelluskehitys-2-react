@@ -10,3 +10,13 @@ export const getNotes = async () => {
         return null
     }
 }
+
+export const postNotes = async (data) => {
+    try {
+        await axios.post("http://localhost:3003/notes", data)
+        return true
+    } catch (e) {
+        console.error(e)
+        return null
+    }
+}
