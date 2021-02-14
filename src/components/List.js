@@ -1,37 +1,34 @@
-import React from "react";
-import { Table } from 'react-bootstrap'
+import React, { useEffect, useState } from "react"
+import { Table } from "react-bootstrap"
+
+import { getNotes } from "../services/notes"
 
 const List = () => {
+    const [notes, setNotes] = useState([])
 
-    return(
-        <div className="container">
-            {/* A JSX comment */}
+    useEffect(() => {
+        ;(async () => {
+            const data = await getNotes()
+            setNotes(data)
+        })()
+    }, [])
 
-            {/* <div>
-                <p>Valinta 2.</p>
-            </div>
-            */}
+    return (
+        <div className='container'>
             <Table striped>
-            <tbody>
-                <tr>
-                    <td>
-                        <p>1. rivi</p>
-                    </td>
-                    <td>
-                        <p>kdfjhfdkjhsfdkjh</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>2. rivi</p>
-                    </td>
-                    <td>
-                        <p>jhgkjdkgjgdkjhdgk</p>
-                    </td>
-                </tr>
-            </tbody>
+                <tbody>
+                    {notes.map((note) => (
+                        <tr>
+                            <td>
+                                <p>{note.content}</p>
+                            </td>
+                            <td>
+                                <p>{note.important.toString()}</p>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
             </Table>
-
         </div>
     )
 }
