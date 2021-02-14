@@ -17,16 +17,17 @@ const List = () => {
         <div className='container'>
             <Table striped>
                 <tbody>
-                    {notes.map((note) => (
-                        <tr>
-                            <td>
-                                <p>{note.content}</p>
-                            </td>
-                            <td>
-                                <p>{note.important.toString()}</p>
-                            </td>
-                        </tr>
-                    ))}
+                    {notes?.length > 0 &&
+                        notes.map((note) => (
+                            <tr>
+                                <td>
+                                    <p>{note.content}</p>
+                                </td>
+                                <td>
+                                    <p>{note.important.toString()}</p>
+                                </td>
+                            </tr>
+                        ))}
                 </tbody>
             </Table>
         </div>
