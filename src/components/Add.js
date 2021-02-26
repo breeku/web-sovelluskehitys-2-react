@@ -7,15 +7,25 @@ import { postNotes } from "../services/notes"
 const Add = () => {
     const [content, setContent] = useState("")
     const [important, setImportant] = useState(false)
+    const [success, setSuccess] = useState(false)
     const [error, setError] = useState(false)
 
     const handleSubmit = async (event) => {
         event.preventDefault()
 
+        if (content === "") {
+            setError("Content cant be empty")
+            return
+        }
         const success = await postNotes({ content, important })
 
-        setError(!success)
+        if (success) {
+            setSuccess("Note submit success")
+        } else {
+            setError("Something went wrong")
+        }
     }
+
     return (
         <div className='container'>
             <div>
@@ -39,7 +49,8 @@ const Add = () => {
                     </Button>
                 </Form>
             </div>
-            {error && <>Something went wrong.</>}
+            {error && <>{error}</>}
+            {success && <>{success}</>}
         </div>
     )
 }
